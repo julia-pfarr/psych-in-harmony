@@ -2,14 +2,6 @@
 ============================================================================
 MULTI-KAPPA SIMULATION: Validation Across Agreement Levels
 Sample Size Determination for Expert Rater Survey
-
-This version runs enhanced analyses across MULTIPLE true kappa values
-to validate sample size across different agreement scenarios.
-
-Purpose: Since you don't know true kappa in advance, this lets you:
-1. Plan conservatively (use worst-case scenario)
-2. Report results conditional on observed kappa
-3. Validate adequacy post-hoc after data collection
 ============================================================================
 """
 
@@ -28,13 +20,7 @@ plt.style.use('seaborn-v0_8-whitegrid')
 sns.set_palette("husl")
 np.random.seed(42)
 
-# ============================================================================
-# [INCLUDE ALL PREVIOUS FUNCTIONS: survey_structure, calculate_fleiss_kappa, 
-#  simulate_expert_ratings_direct, analyze_stability, etc.]
-# For brevity, I'll note where they go but include the NEW/MODIFIED functions
-# ============================================================================
-
-# [INSERT: survey_structure definition]
+# [survey_structure definition]
 survey_structure = {
     'Depression': {
         'dimensions': ['Mood_Affective', 'Cognitive_SelfPerception', 
@@ -65,9 +51,7 @@ survey_structure = {
     }
 }
 
-# [INSERT: All calculation and simulation functions from previous script]
 # calculate_fleiss_kappa_from_ratings, simulate_expert_ratings_direct, etc.
-# [Copy from previous script - lines 57-227 from FINAL version]
 
 def calculate_fleiss_kappa_from_ratings(ratings, n_categories):
     """Calculate Fleiss' kappa from raw ratings array."""
@@ -225,7 +209,7 @@ def analyze_replication_variability(construct_info, n_raters_range, true_kappa, 
     return pd.DataFrame(results)
 
 # ============================================================================
-# NEW: MULTI-KAPPA COMPARISON PLOTS
+# MULTI-KAPPA COMPARISON PLOTS
 # ============================================================================
 
 def plot_stability_comparison(all_stability_df, construct_name, save_path):
@@ -420,7 +404,7 @@ def plot_replication_comparison(all_replication_df, construct_name, save_path):
     plt.close()
 
 # ============================================================================
-# NEW: RUN MULTI-KAPPA ANALYSES
+# RUN MULTI-KAPPA ANALYSES
 # ============================================================================
 
 def run_multi_kappa_analyses(construct_name, true_kappa_range=None):
@@ -569,15 +553,9 @@ def main():
     all_recs.to_csv(output_dir / 'all_constructs_all_kappas.csv', index=False)
     
     print("\n" + "="*70)
-    print("COMPLETE! All constructs analyzed across kappa values.")
+    print("COMPLETE!")
     print("="*70)
     print(f"\nResults saved to: {output_dir.absolute()}/")
-    print("\nEach construct has:")
-    print("  - stability_all_kappas.csv")
-    print("  - precision_all_kappas.csv")
-    print("  - replication_all_kappas.csv")
-    print("  - recommendations_by_kappa.csv")
-    print("  - Comparison plots for each metric")
 
 def quick_test():
     """Quick test on Depression only."""
@@ -590,7 +568,7 @@ def quick_test():
         true_kappa_range=[0.40, 0.50, 0.60, 0.70]
     )
     
-    print("\n✓ Test complete! Check 'analysis_multikappa_depression/' folder.")
+    print("\n✓ Test complete!")
 
 if __name__ == "__main__":
     import sys
@@ -598,5 +576,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == '--full':
         main()
     else:
-        print("Running quick test. Use '--full' for all constructs.\n")
         quick_test()
